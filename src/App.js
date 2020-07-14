@@ -1,25 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import ScrollToTop from './lib/ScrollToTop.js'
+
+import LoginPage from './pages/LoginPage';
+import GroupListPage from './pages/GroupListPage';
+import GroupPage from './pages/GroupPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ScrollToTop />
+      <Switch>
+        <Route component={LoginPage} path={['/login', '/']} exact />
+        <Route component={GroupListPage} path='/@:username' />
+        <Route component={GroupPage} path='/@:username/:groupName' />
+        <Redirect path="*" to="/login" />
+      </Switch>
+    </>
   );
 }
 
