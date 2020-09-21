@@ -5,6 +5,7 @@ import ScrollToTop from './lib/ScrollToTop.js'
 import LoginPage from './pages/LoginPage';
 import GroupListPage from './pages/GroupListPage';
 import GroupPage from './pages/GroupPage';
+import EditProfilePage from './pages/EditProfilePage';
 
 function App() {
   return (
@@ -12,8 +13,10 @@ function App() {
       <ScrollToTop />
       <Switch>
         <Route component={LoginPage} path={['/login', '/']} exact />
-        <Route component={GroupListPage} path='/@:username' />
-        <Route component={GroupPage} path='/@:username/:groupName' />
+        <Route component={GroupListPage} path='/@:userId' exact/>
+        <Route component={GroupPage} path='/@:userId/:groupName' exact/>
+        <Route component={EditProfilePage} path='/profile' />
+
         <Redirect path="*" to="/login" />
       </Switch>
     </>

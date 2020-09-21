@@ -1,14 +1,21 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import auth from './auth';
+import auth, { authSaga } from './auth';
+import place, { placeSaga } from './place';
+import group, { groupSaga } from './group';
+import modal from './modal';
+
 import loading from './loading';
 
 const rootReducer = combineReducers({
-    auth,
     loading,
+    auth,
+    group,
+    place,
+    modal,
 });
 
 export function* rootSaga() {
-    yield all([]);
+    yield all([authSaga(), placeSaga(), groupSaga()]);
 }
 export default rootReducer;

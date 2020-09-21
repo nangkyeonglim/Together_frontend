@@ -1,11 +1,11 @@
 import React from 'react';
 
-const GroupPage = () => {
+const GroupList = () => {
     return (
         <div>
-            aa
+            dd
         </div>
     );
 };
 
-export default GroupPage;
+export default GroupList;

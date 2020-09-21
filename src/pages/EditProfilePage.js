@@ -1,14 +1,14 @@
 import React from 'react';
 import HeaderContainer from '../containers/common/HeaderContainer';
-import MainGroupTemplate from '../components/group/MainGroupTemplate';
+import EditProfileTemplate from '../components/auth/EditProfileTemplate';
 
-const LoginPage = () => {
+const EditProfilePage = () => {
     return (
         <>
             <HeaderContainer />
-            <MainGroupTemplate />
+            <EditProfileTemplate />
         </>
     );
 };
 
-export default LoginPage;
+export default EditProfilePage;
