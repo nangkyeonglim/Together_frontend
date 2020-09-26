@@ -18,6 +18,9 @@ const initialState = {
     login_modal: {
         visible: false,
     },
+    add_group_modal: {
+        visible: false,
+    }
 };
 
 const modal  = handleActions(

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IoMdClose } from "react-icons/io";
+import { useDispatch } from 'react-redux';
+import { initializeAddGroupField } from '../../modules/group';
 
 const ModalWrapper = styled.div`
   box-sizing: border-box;
@@ -55,15 +57,19 @@ const ModalInner = styled.div`
 `;
 
 function Modal({ className, onClose, maskClosable, closable, visible, children }){
+  const dispatch = useDispatch();
+
   const onMaskClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose(e);
+      dispatch(initializeAddGroupField());
     }
   }
 
   const close = (e) => {
     if (onClose) {
       onClose(e);
+      dispatch(initializeAddGroupField());
     }
   }
   return (

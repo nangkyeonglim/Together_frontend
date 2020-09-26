@@ -14,7 +14,7 @@ function App() {
       <Switch>
         <Route component={LoginPage} path={['/login', '/']} exact />
         <Route component={GroupListPage} path='/@:userId' exact/>
-        <Route component={GroupPage} path='/@:userId/:groupName' exact/>
+        <Route component={GroupPage} path='/group/:groupId' exact/>
         <Route component={EditProfilePage} path='/profile' />
 
         <Redirect path="*" to="/login" />

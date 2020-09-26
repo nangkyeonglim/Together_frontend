@@ -121,14 +121,16 @@ const MainGroup = ({ group_list }) => {
                                     <div className="group__description">
                                         <div className="group__description__title">
                                             <h1>{group.title}</h1>
-                                            {/* <p>{group.content}</p> */}
-                                            <p className="tag">{group.tags.map((tag)=>{
-                                                return '#' + tag + ' ';
-                                            })}</p>
+                                            <p className="tag">
+                                                {group.tags.map(tag => {
+                                                    return '#' + tag + ' ';
+                                                })
+                                                }
+                                            </p>
                                         </div>
                                         <div className="group__description__creator">
-                                            <img className="image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="profile" />                     
-                                            임낭경                  
+                                            <img className="image" src={group.master.profileImage} alt="profile" />                     
+                                            {group.master.name}   
                                         </div>
                                     </div>
                                     <div className="group__follow">

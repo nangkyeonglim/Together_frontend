@@ -3,6 +3,7 @@ import GroupList from '../../components/group/GroupList';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGroupByUserId } from '../../modules/group';
 import { withRouter } from 'react-router-dom';
+import { openModal } from '../../modules/modal';
 
 const GroupListContainer = ({ match }) => {
     const dispatch = useDispatch();
@@ -11,12 +12,18 @@ const GroupListContainer = ({ match }) => {
     }));
 
     useEffect(()=> {
-        dispatch(getGroupByUserId({userId: match.params.userId}));
+        dispatch(getGroupByUserId(match.params.userId));
     },[dispatch, match])
 
+    const handleAddGroup = () => {
+        dispatch(openModal('add_group_modal'));
+    }
 
     return (
-        <GroupList />
+        <GroupList 
+            my_group={my_group}
+            handleAddGroup={handleAddGroup}
+        />
     );
 };
 

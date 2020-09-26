@@ -100,11 +100,14 @@ const HeaderBlock = styled.header`
                 color: #2c3e50;
             }
             img{
-                width: 2.1rem;
+                /* width: 2.1rem;
+                height: 2.1rem; */
+                width: auto; height: auto;
+                max-width: 2.1rem;
+                max-height: 2.1rem;
                 border-radius: 50%;
                 cursor: pointer;
-                margin-right: 0.5rem; 
-                box-shadow: 0 0 0 1px gray; 
+                margin-right: 0.5rem;
             }
             .tooltip {
                 position: relative;
@@ -151,8 +154,6 @@ const HeaderBlock = styled.header`
             display: flex;
             justify-content: center;
             align-items: center;
-
-            
             button{
                 color: black;
                 margin: 0rem 0.5rem;
@@ -181,6 +182,7 @@ const HeaderBlock = styled.header`
             @media (max-width: 1023px){
                 display: flex;
                 margin-right: 1rem;
+                justify-content: center;
                 align-items: center;   
                 span{
                     margin-right: 0;
