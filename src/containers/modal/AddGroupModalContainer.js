@@ -26,7 +26,7 @@ const AddGroupModalContainer = () => {
             const file = e.target.files[0];
             if(file !== undefined){
                 var formData = new FormData();
-                formData.append('data', file);
+                formData.append('imageFile', file);
                 dispatch(changeAddGroupField({
                     key: 'file',
                     value: formData,
@@ -48,7 +48,7 @@ const AddGroupModalContainer = () => {
 
     const handleSubmit = () => {
         var formData = add_group.file;
-        formData.append('properties', new Blob([JSON.stringify({
+        formData.append('request', new Blob([JSON.stringify({
             "title": add_group.title,
             "tags": add_group.tags,
             "content":add_group.content,

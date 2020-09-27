@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useCallback } from 'react';
+import styled, { css } from 'styled-components';
 import logo from '../../lib/images/together_logo.png';
 import m_logo from '../../lib/images/together_m_logo.png';
 import { FaBars } from "react-icons/fa";
@@ -22,7 +22,7 @@ const HeaderBlock = styled.header`
         height: 100%;
         display: flex;
         align-items: center;
-        width: 300px;
+        margin-right: 3rem;
         a{
             display: flex;
             align-items: center;
@@ -76,6 +76,15 @@ const HeaderBlock = styled.header`
         justify-content: space-between;
         .left{
             flex-grow: 1;
+            display: flex;
+            align-items: center;
+            .search-category{
+                display: flex;
+                padding: 0;
+                align-items: center;
+                justify-content: center;
+                margin: 0 0.5rem 0 0;
+            }
             .search{
                 display: flex;
                 align-items: center;
@@ -88,7 +97,13 @@ const HeaderBlock = styled.header`
                     outline: none;
                     background: #EFEFEF;
                     border-radius: 5px;
-                    padding: 0.5rem 2rem 0.5rem 0.5rem;
+                    padding: 0.3rem 2rem 0.3rem 0.5rem;
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+                form{
+                    display: flex;
+                    align-items:center;
                     width: 100%;
                 }
             }
@@ -227,12 +242,42 @@ const HeaderBlock = styled.header`
     }
 `;
 
+const StyledList = styled.li`
+    list-style: none;
+    float: left; 
+    cursor: pointer;
+    margin-left:0.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0;
+    flex-shrink: 0;
+    span {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+    ${props =>
+        props.active &&
+        css`
+            color: #2481FF;  
+        `
+    }
+    &:hover{
+        color: #2481FF;  
+    }
+`;
+
 const Spacer = styled.div`
     height: 3.3rem;
 `;
 
 const Header = ({ handleClick, handleOpenModal, handleLogout, location , user_info, handleChange, handleBlur, handleSubmit }) => {
     // const page = location.pathname;
+    const [type, setType] = useState('search-group');
+
+    const changeType = useCallback(e => {
+        setType(e.target.id);
+    }, []);
+
     return (
         <>
             <LoginModalContainer />
@@ -253,8 +298,17 @@ const Header = ({ handleClick, handleOpenModal, handleLogout, location , user_in
                 <div className="left">
                     <div className="search">
                         <MdSearch />
+                        <ul className="search-category">
+                            <StyledList active={type !== 'search-place'}><span onClick={changeType} id="search-group">그룹</span></StyledList>
+                            <StyledList active={type === 'search-place'}><span onClick={changeType} id="search-place">맛집</span></StyledList>
+                        </ul>
                         <form onSubmit={handleSubmit}>
-                            <input type="text" placeholder="#태그, 그룹명 검색" onChange={handleChange} onBlur={handleBlur} />
+                            {type==="search-group"?
+                                <input type="text" placeholder="#태그, 그룹명 검색" onChange={handleChange} onBlur={handleBlur} />
+                                :
+                                <input type="text" placeholder="맛집 이름, 백종원 맛집 등 검색" onChange={handleChange} onBlur={handleBlur} />
+                            }
+                            
                         </form>
                     </div>
                    
