@@ -24,17 +24,20 @@ const AddGroupModalContainer = () => {
             e.preventDefault();
             let reader = new FileReader();
             const file = e.target.files[0];
-            console.log('hi');
-            console.log(file);
+            if(file !== undefined){
+                var formData = new FormData();
+                formData.append('data', file);
+                dispatch(changeAddGroupField({
+                    key: 'file',
+                    value: formData,
+                }))
+            }
             reader.onloadend = () => {
                 dispatch(changeAddGroupField({
                     key : 'imageUrl',
                     value : reader.result
                 }))
-                dispatch(changeAddGroupField({
-                    key: 'file',
-                    value: file,
-                }))
+                
             }
             reader.readAsDataURL(file); 
         }
@@ -44,7 +47,16 @@ const AddGroupModalContainer = () => {
     }
 
     const handleSubmit = () => {
-        dispatch(addGroup(add_group));
+        var formData = add_group.file;
+        formData.append('properties', new Blob([JSON.stringify({
+            "title": add_group.title,
+            "tags": add_group.tags,
+            "content":add_group.content,
+            "credential": add_group.credential,                 
+        })], {
+            type: "application/json"
+        }));
+        dispatch(addGroup(formData));
     }
     return (
         <>

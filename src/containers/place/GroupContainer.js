@@ -8,10 +8,11 @@ import { withRouter } from 'react-router-dom';
 
 const GroupContainer = ({ match }) => {
     const dispatch = useDispatch();
-    const { place_by_group, current_group, current_group_member } = useSelector(({ place, group }) => ({
+    const { place_by_group, current_group, current_group_member, user_info } = useSelector(({ place, group, auth }) => ({
         place_by_group: place.place_by_group,
         current_group: group.current_group,
         current_group_member: group.current_group_member,
+        user_info: auth.user_info,
     }));
 
     useEffect(() => {
@@ -25,6 +26,7 @@ const GroupContainer = ({ match }) => {
             place_by_group={place_by_group}
             current_group={current_group}
             current_group_member={current_group_member}
+            user_info={user_info}
         />
     );
 };

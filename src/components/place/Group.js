@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaHeart } from "react-icons/fa";
-import { BiPlusCircle } from "react-icons/bi";
 import { RiEdit2Fill } from "react-icons/ri";
 
 const GroupBlock = styled.div`
@@ -45,7 +44,56 @@ const ResponsiveBlock = styled.div`
             flex: 1;
             height: 100%;
             background: white;
-            border-radius: 10px;
+            border-radius: 0 10px 10px 0;
+            position: relative;
+            .tooltip {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                top: 0;
+                right: 0;
+                margin: 1rem;
+            }
+
+            .tooltip .tooltip-text {
+                visibility: hidden;
+                font-size: 0.8rem;
+                width: 100px;
+                background-color: gray;
+                color: #fff;
+                text-align: center;
+                border-radius: 6px;
+                padding: 5px 0;
+                position: absolute;
+                z-index: 1;
+                top: 125%;
+                right: 50%;
+                margin-right: -50px;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .tooltip .tooltip-text::after {
+                content: "";
+                position: absolute;
+                bottom: 100%;
+                right: 50%;
+                margin-right: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color:  transparent transparent gray transparent;
+            }
+
+            .tooltip:hover .tooltip-text {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+            .edit-button > * {
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: #7f8c8d;
+            }
             .group-description-content{
                 margin-left: 1rem;
             }
@@ -220,7 +268,7 @@ const PlaceBlock = styled.li`
 
 `;
 
-const Group = ({ place_by_group, current_group, current_group_member }) => {
+const Group = ({ place_by_group, current_group, current_group_member, user_info }) => {
     return (
         <GroupBlock>
             {current_group && current_group_member &&
@@ -233,6 +281,16 @@ const Group = ({ place_by_group, current_group, current_group_member }) => {
                         </BackgroundBlock>
                     </div>
                     <div className="group-description">
+                        {current_group.master.name === user_info.name?
+                            <div className="tooltip">
+                                <div className="edit-button">
+                                    <RiEdit2Fill/>
+                                </div>
+                                <span className="tooltip-text">그룹 편집</span>
+                            </div>
+                            :
+                            null
+                        }
                         <p className="group-description-content">{current_group.content}</p>
                         <p className="group-description-tag">
                             {current_group.tags.map(tag => {
@@ -254,10 +312,6 @@ const Group = ({ place_by_group, current_group, current_group_member }) => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="place_adder">
-                    <BiPlusCircle />
-                    <RiEdit2Fill />
-                </div> */}
                 <PlaceWrapper>
                     <ul>
                         {place_by_group && place_by_group.map(place => {
