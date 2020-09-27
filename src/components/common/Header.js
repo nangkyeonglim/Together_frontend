@@ -16,7 +16,7 @@ const HeaderBlock = styled.header`
     position: fixed;
     width: 100%;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
-  
+    background: #FFFFFF;
     .logo{
         background: #FFFFFF;
         height: 100%;
@@ -270,7 +270,7 @@ const Spacer = styled.div`
     height: 3.3rem;
 `;
 
-const Header = ({ handleClick, handleOpenModal, handleLogout, location , user_info, handleChange, handleBlur, handleSubmit }) => {
+const Header = ({ handleClick, handleOpenModal, handleLogout, location , user_info, handleChange, handleBlur, handleSubmitPlace, handleSubmitGroup }) => {
     // const page = location.pathname;
     const [type, setType] = useState('search-group');
 
@@ -302,14 +302,18 @@ const Header = ({ handleClick, handleOpenModal, handleLogout, location , user_in
                             <StyledList active={type !== 'search-place'}><span onClick={changeType} id="search-group">그룹</span></StyledList>
                             <StyledList active={type === 'search-place'}><span onClick={changeType} id="search-place">맛집</span></StyledList>
                         </ul>
-                        <form onSubmit={handleSubmit}>
+                       
                             {type==="search-group"?
-                                <input type="text" placeholder="#태그, 그룹명 검색" onChange={handleChange} onBlur={handleBlur} />
+                                <form onSubmit={handleSubmitGroup}>
+                                    <input type="text" placeholder="#태그, 그룹명 검색" onChange={handleChange} onBlur={handleBlur} />
+                                </form>
                                 :
-                                <input type="text" placeholder="맛집 이름, 백종원 맛집 등 검색" onChange={handleChange} onBlur={handleBlur} />
+                                <form onSubmit={handleSubmitPlace}>
+                                    <input type="text" placeholder=" #카테고리, 맛집 이름 검색" onChange={handleChange} onBlur={handleBlur} />
+                                </form>
                             }
                             
-                        </form>
+                        
                     </div>
                    
                 </div>
@@ -322,7 +326,7 @@ const Header = ({ handleClick, handleOpenModal, handleLogout, location , user_in
                                     <img src={user_info.profileImage} alt="profile" />
                                     <span className="tooltip-text">프로필 수정</span>
                                 </div>
-                                </Link>
+                            </Link>
                             <span>{user_info.name}</span>
                             <button onClick={handleLogout}>로그아웃</button>
                         </div>

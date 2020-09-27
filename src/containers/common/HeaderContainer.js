@@ -38,7 +38,7 @@ const HeaderContainer = () => {
         e.target.value='';
         dispatch(changeField({ value: null }));
     }
-    const handleSubmit = (e) => {
+    const handleSubmitGroup = (e) => {
         e.preventDefault();
         if (search.indexOf('#') !== -1){
             let tag = search.replace('#','');
@@ -48,7 +48,19 @@ const HeaderContainer = () => {
             console.log(search);
             dispatch(getGroupByTitle({title: search}));
         }
+    }
 
+    //맛집검색 나중에 구현
+    const handleSubmitPlace = (e) => {
+        e.preventDefault();
+        if (search.indexOf('#') !== -1){
+            let tag = search.replace('#','');
+            dispatch(getGroupByTag({tag : tag}));
+        }
+        else{
+            console.log(search);
+            dispatch(getGroupByTitle({title: search}));
+        }
     }
 
     //authToken 있는지 확인 하는 로직
@@ -65,7 +77,8 @@ const HeaderContainer = () => {
             handleLogout={handleLogout}
             handleChange={handleChange}
             handleBlur={handleBlur}
-            handleSubmit={handleSubmit}
+            handleSubmitPlace={handleSubmitPlace}
+            handleSubmitGroup={handleSubmitGroup}
         />
     );
 };

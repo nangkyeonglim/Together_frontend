@@ -268,7 +268,7 @@ const PlaceBlock = styled.li`
 
 `;
 
-const Group = ({ place_by_group, current_group, current_group_member, user_info }) => {
+const Group = ({ place_by_group, current_group, current_group_member, user_info, handleEditModal }) => {
     return (
         <GroupBlock>
             {current_group && current_group_member &&
@@ -282,7 +282,7 @@ const Group = ({ place_by_group, current_group, current_group_member, user_info 
                     </div>
                     <div className="group-description">
                         {current_group.master.name === user_info.name?
-                            <div className="tooltip">
+                            <div className="tooltip" onClick={handleEditModal}>
                                 <div className="edit-button">
                                     <RiEdit2Fill/>
                                 </div>

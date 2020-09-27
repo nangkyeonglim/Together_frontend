@@ -132,6 +132,18 @@ const ContentBlock = styled.div`
         }
     }
     .button-block{
+        .delete-button{
+            color: white;
+            background: #e74c3c;
+            border: 1px solid #e74c3c;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        button + button {
+            margin-left: 1rem;
+        }
         button{
             color: white;
             background: #34558b;
@@ -147,12 +159,14 @@ const ContentBlock = styled.div`
     }
 `;
 
-const AddGroupModal = ({ error, handleChange, add_group, handleSubmit }) => {
+const AddGroupModal = ({ error, handleChange, add_group, handleSubmit, edit }) => {
     return (
         <ContentBlock>
-            <h1>
-                그룹 생성
-            </h1>
+            {edit?
+                <h1>그룹 편집</h1>
+                :
+                <h1>그룹 생성</h1>
+            }
             <div className="form">
                 <div className="form-group">
                     <div className="file-upload">
@@ -193,7 +207,14 @@ const AddGroupModal = ({ error, handleChange, add_group, handleSubmit }) => {
                 <p className="error_block">&nbsp;</p>
             }
             <div className="button-block">
-                <button onClick={handleSubmit}>생성</button>
+                {edit?
+                    <>
+                        <button className="delete-button">그룹 삭제</button>
+                        <button onClick={handleSubmit}>수정</button>
+                    </>
+                    :
+                    <button onClick={handleSubmit}>생성</button>
+                }
             </div>
         </ContentBlock>
     );

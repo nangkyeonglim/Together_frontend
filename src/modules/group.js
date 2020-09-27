@@ -7,6 +7,7 @@ import produce from 'immer';
 const CHANGE_FIELD = 'group/CHANGE_FIELD';
 const CHANGE_ADD_GROUP_FIELD = 'group/CHANGE_ADD_GROUP_FIELD';
 const INITIALIZE_ADD_GROUP_FIELD = 'group/INITIALIZE_ADD_GROUP_FIELD';
+const SET_EDIT_GROUP_FIELD = 'group/SET_EDIT_GROUP_FIELD'
 
 const [GET_ALL_GROUP, GET_ALL_GROUP_SUCCESS, GET_ALL_GROUP_FAILURE] = createRequestActionTypes(
     'group/GET_ALL_GROUP'
@@ -26,6 +27,9 @@ const [GET_GROUP_BY_GROUP_ID, GET_GROUP_BY_GROUP_ID_SUCCESS, GET_GROUP_BY_GROUP_
 const [ADD_GROUP, ADD_GROUP_SUCCESS, ADD_GROUP_FAILURE] = createRequestActionTypes(
     'group/ADD_GROUP'
 );
+const [EDIT_GROUP, EDIT_GROUP_SUCCESS, EDIT_GROUP_FAILURE] = createRequestActionTypes(
+    'group/EDIT_GROUP'
+);
 const [GET_ALL_GROUP_USER, GET_ALL_GROUP_USER_SUCCESS, GET_ALL_GROUP_USER_FAILURE] = createRequestActionTypes(
     'group/GET_ALL_GROUP_USER'
 );
@@ -33,6 +37,7 @@ const [GET_ALL_GROUP_USER, GET_ALL_GROUP_USER_SUCCESS, GET_ALL_GROUP_USER_FAILUR
 export const changeField = createAction(CHANGE_FIELD, ({ value }) => ({ value }));
 export const changeAddGroupField = createAction(CHANGE_ADD_GROUP_FIELD, ({ key, value }) => ({ key, value }));
 export const initializeAddGroupField = createAction(INITIALIZE_ADD_GROUP_FIELD);
+export const setEditGroupField = createAction(SET_EDIT_GROUP_FIELD, group => group);
 
 export const getAllGroup = createAction(GET_ALL_GROUP);
 export const getGroupByTitle = createAction(GET_GROUP_BY_TITLE, title => title);
@@ -40,6 +45,7 @@ export const getGroupByTag = createAction(GET_GROUP_BY_TAG, tag => tag);
 export const getGroupByUserId = createAction(GET_GROUP_BY_USER_ID, userId => userId);
 export const getGroupByGroupId = createAction(GET_GROUP_BY_GROUP_ID, groupId => groupId);
 export const addGroup = createAction(ADD_GROUP, group => group);
+export const editGroup = createAction(EDIT_GROUP, info => info);
 export const getAllGroupUser = createAction(GET_ALL_GROUP_USER, groupId => groupId);
 
 const getAllGroupSaga = createRequestSaga(GET_ALL_GROUP, groupAPI.getAllGroup);
@@ -48,6 +54,7 @@ const getGroupByTagSaga = createRequestSaga(GET_GROUP_BY_TAG, groupAPI.getGroupB
 const getGroupByUserIdSaga = createRequestSaga(GET_GROUP_BY_USER_ID, groupAPI.getGroupByUserId);
 const getGroupByGroupIdSaga = createRequestSaga(GET_GROUP_BY_GROUP_ID, groupAPI.getGroupByGroupId);
 const addGroupSaga = createRequestSaga(ADD_GROUP, groupAPI.addGroup);
+const editGroupSaga = createRequestSaga(EDIT_GROUP, groupAPI.editGroup);
 const getAllGroupUserSaga = createRequestSaga(GET_ALL_GROUP_USER, groupAPI.getAllGroupUser);
 
 export function* groupSaga(){
@@ -57,6 +64,7 @@ export function* groupSaga(){
     yield takeLatest(GET_GROUP_BY_USER_ID, getGroupByUserIdSaga);
     yield takeLatest(GET_GROUP_BY_GROUP_ID, getGroupByGroupIdSaga);
     yield takeLatest(ADD_GROUP, addGroupSaga);
+    yield takeLatest(EDIT_GROUP, editGroupSaga);
     yield takeLatest(GET_ALL_GROUP_USER, getAllGroupUserSaga);
 }
 
@@ -99,6 +107,17 @@ const group = handleActions(
     [CHANGE_ADD_GROUP_FIELD]: (state, { payload: { key, value } }) => 
         produce(state, draft => {
             draft.add_group[key] = value;
+    }),
+    [SET_EDIT_GROUP_FIELD]: (state, { payload: group }) => ({
+        ...state,
+        add_group : {
+            title: group.title,
+            content: group.content,
+            imageUrl: group.imageUrl,
+            credential: "",
+            file: "",
+            tags: group.tags,
+        },
     }),
     [GET_ALL_GROUP_SUCCESS]: (state, { payload: group_list }) => ({
         ...state,
@@ -145,6 +164,14 @@ const group = handleActions(
         response,
     }),
     [ADD_GROUP_FAILURE]: (state, { payload: error }) => ({
+        ...state,
+        error: error.response.data,
+    }),
+    [EDIT_GROUP_SUCCESS]: (state, { payload: response }) => ({
+        ...state,
+        response,
+    }),
+    [EDIT_GROUP_FAILURE]: (state, { payload: error }) => ({
         ...state,
         error: error.response.data,
     }),

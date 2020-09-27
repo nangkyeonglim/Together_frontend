@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../../components/common/Modal';
 import { closeModal } from '../../modules/modal';
 import AddGroupModal from '../../components/modal/AddGroupModal';
-import { changeAddGroupField, addGroup } from '../../modules/group';
+import { changeAddGroupField, addGroup, setEditGroupField, editGroup } from '../../modules/group';
+import { withRouter } from 'react-router-dom';
 
 
-const AddGroupModalContainer = () => {
+const AddGroupModalContainer = ({ match }) => {
     const dispatch = useDispatch();
-    const { add_group_modal, error, add_group } = useSelector(({ modal, group }) => ({
+    const { add_group_modal, error, add_group, current_group } = useSelector(({ modal, group }) => ({
         add_group_modal: modal.add_group_modal,
         error: group.error,
         add_group: group.add_group,
+        current_group: group.current_group,
     }));
 
     const handleCloseModal = () => {
@@ -47,7 +49,13 @@ const AddGroupModalContainer = () => {
     }
 
     const handleSubmit = () => {
-        var formData = add_group.file;
+        var formData;
+        if(add_group.file === ""){
+            formData = new FormData();
+        }
+        else{
+            formData = add_group.file;
+        }
         formData.append('request', new Blob([JSON.stringify({
             "title": add_group.title,
             "tags": add_group.tags,
@@ -56,8 +64,30 @@ const AddGroupModalContainer = () => {
         })], {
             type: "application/json"
         }));
-        dispatch(addGroup(formData));
+        if(match.path === "/group/:groupId"){
+            const info = {
+                roomId : match.params.groupId,
+                formData: formData,
+            }
+            dispatch(editGroup(info));
+        }
+        else{
+            dispatch(addGroup(formData));
+        }
     }
+
+    useEffect(() => {
+        if(current_group && match.path === "/group/:groupId"){
+            const group = {
+                title: current_group.title,
+                content: current_group.content,
+                imageUrl: current_group.imageUrl,
+                tags: current_group.tags,
+            }
+            dispatch(setEditGroupField(group));
+        }
+    },[match, dispatch, current_group]);
+
     return (
         <>
             {
@@ -72,6 +102,7 @@ const AddGroupModalContainer = () => {
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
                         add_group={add_group}
+                        edit={match.path === "/group/:groupId"}
                     />
                 </Modal>
             }
@@ -79,4 +110,4 @@ const AddGroupModalContainer = () => {
     );
 };
 
-export default AddGroupModalContainer;
+export default withRouter(AddGroupModalContainer);
