@@ -20,7 +20,13 @@ const initialState = {
     },
     add_group_modal: {
         visible: false,
-    }
+    },
+    group_delete_alert_modal: {
+        visible: false,
+    },
+    add_place_modal: {
+        visible: false,
+    },
 };
 
 const modal  = handleActions(

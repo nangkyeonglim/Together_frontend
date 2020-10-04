@@ -65,8 +65,10 @@ const ContentBlock = styled.div`
             font-size: 0.7rem;
         }
         img{
-            width: 100%;
-            height: 100%;   
+            width: 17rem;
+            height: 8rem;
+            object-fit: cover;
+            object-position: 50% 50%;
         }
 
     }
@@ -132,14 +134,19 @@ const ContentBlock = styled.div`
         }
     }
     .button-block{
+        margin-top: 0.5rem;   
         .delete-button{
-            color: white;
-            background: #e74c3c;
-            border: 1px solid #e74c3c;
+            color: #e74c3c;
+            background: white;
+            border: 2px solid #e74c3c;
             cursor: pointer;
             padding: 0.5rem 1rem;
             border-radius: 4px;
             font-weight: bold;
+        }
+        .delete-button:hover{
+            background: #e74c3c;
+            color:white;    
         }
         button + button {
             margin-left: 1rem;
@@ -159,7 +166,7 @@ const ContentBlock = styled.div`
     }
 `;
 
-const AddGroupModal = ({ error, handleChange, add_group, handleSubmit, edit }) => {
+const AddGroupModal = ({ error, handleChange, add_group, handleSubmit, edit, handleDelete }) => {
     return (
         <ContentBlock>
             {edit?
@@ -209,7 +216,7 @@ const AddGroupModal = ({ error, handleChange, add_group, handleSubmit, edit }) =
             <div className="button-block">
                 {edit?
                     <>
-                        <button className="delete-button">그룹 삭제</button>
+                        <button className="delete-button" onClick={handleDelete}>그룹 삭제</button>
                         <button onClick={handleSubmit}>수정</button>
                     </>
                     :

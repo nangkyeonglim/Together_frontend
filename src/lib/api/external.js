@@ -1,10 +1,9 @@
 import client from './client';
 
+//네이버에서 이미지 찾기
+export const findPlaceImageFromExternal = (data) =>
+    client.get(`https://openapi.naver.com/v1/search/image?query=${data.query}&filter=${data.filter}`,{headers: {'X-Naver-Client-Id': 'FF3KvsyKdcgcEwb4pY2U',  'X-Naver-Client-Secret': 'oBLAjmrrCh'}});
 
-//Social Login
-export const findPlaceImage = (data) =>
-    client.get(`v1/search/image?query=${data.query}&filter=${data.filter}`);
-
-//Sign Up
-export const signUp = (user) =>
-    client.post('v1/signup', user);
+//네이버에서 플레이스찾기
+export const findPlaceFromExternal = (data) =>
+    client.post(`https://openapi.naver.com/v1/search/local.json?query=${data}`, {headers: {'X-Naver-Client-Id': 'FF3KvsyKdcgcEwb4pY2U',  'X-Naver-Client-Secret': 'oBLAjmrrCh'}});

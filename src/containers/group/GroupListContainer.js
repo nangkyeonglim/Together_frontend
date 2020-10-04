@@ -5,10 +5,11 @@ import { getGroupByUserId } from '../../modules/group';
 import { withRouter } from 'react-router-dom';
 import { openModal } from '../../modules/modal';
 
-const GroupListContainer = ({ match }) => {
+const GroupListContainer = ({ match, history }) => {
     const dispatch = useDispatch();
-    const { my_group } = useSelector(({ group }) => ({
+    const { my_group, user_info } = useSelector(({ group, auth }) => ({
         my_group: group.my_group,
+        user_info: auth.user_info,
     }));
 
     useEffect(()=> {
@@ -18,6 +19,15 @@ const GroupListContainer = ({ match }) => {
     const handleAddGroup = () => {
         dispatch(openModal('add_group_modal'));
     }
+
+    useEffect(()=> {
+        if(user_info && parseInt(match.params.userId) !== parseInt(user_info.userId)){
+            history.push('/');
+        }
+        else if(!user_info){
+            history.push('/');
+        }
+    },[history, match, user_info]);
 
     return (
         <GroupList 

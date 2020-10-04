@@ -4,16 +4,17 @@ import Header from '../../components/common/Header';
 // import { getNavigationState } from '../../modules/navigation';
 import { openModal } from '../../modules/modal';
 import { getUser, logout } from '../../modules/auth';
-import { changeField, getGroupByTag, getGroupByTitle } from '../../modules/group'
+import { changeField, initializeList } from '../../modules/search';
 // import cookie from 'react-cookies';
+import { withRouter } from 'react-router-dom';
 
 
-const HeaderContainer = () => {
+const HeaderContainer = ({ history }) => {
     const dispatch = useDispatch();
-    const { user_info, user_info_error, search } = useSelector(({ auth, group }) => ({
+    const { user_info, user_info_error, search } = useSelector(({ auth, search }) => ({
         user_info: auth.user_info,
         user_info_error: auth.user_info_error,
-        search: group.search,
+        search: search.search,
     }));
 
     // //반응형으로 네비게이션 서랍형일 때 네비게이션 state
@@ -29,6 +30,7 @@ const HeaderContainer = () => {
     //로그아웃
     const handleLogout = () => {
         dispatch(logout());
+        history.push('/');
     }
 
     const handleChange = (e) => {
@@ -40,27 +42,32 @@ const HeaderContainer = () => {
     }
     const handleSubmitGroup = (e) => {
         e.preventDefault();
-        if (search.indexOf('#') !== -1){
-            let tag = search.replace('#','');
-            dispatch(getGroupByTag({tag : tag}));
+        dispatch(initializeList());
+        if(search === null || search=== ""){
+            history.push(`/search/group?all=true`);
         }
         else{
-            console.log(search);
-            dispatch(getGroupByTitle({title: search}));
+            if (search.indexOf('#') !== -1){
+                let tag = search.replace('#','');
+                history.push(`/search/group?tag=${tag}`);
+            }
+            else{
+                history.push(`/search/group?title=${search}`);
+            }
         }
     }
 
-    //맛집검색 나중에 구현
+    //맛집검색
     const handleSubmitPlace = (e) => {
         e.preventDefault();
         if (search.indexOf('#') !== -1){
-            let tag = search.replace('#','');
-            dispatch(getGroupByTag({tag : tag}));
+            let category = search.replace('#','');
+            history.push(`/search/place?category=${category}`);
         }
         else{
-            console.log(search);
-            dispatch(getGroupByTitle({title: search}));
+            history.push(`/search/place?placeName=${search}`);
         }
+
     }
 
     //authToken 있는지 확인 하는 로직
@@ -83,4 +90,4 @@ const HeaderContainer = () => {
     );
 };
 
-export default HeaderContainer;
+export default withRouter(HeaderContainer);

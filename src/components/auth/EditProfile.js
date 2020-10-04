@@ -24,6 +24,9 @@ const EditProfileBlock = styled.div`
             align-items: center;
             img{
                 width:7rem;
+                height: 7rem;
+                object-fit: cover;
+                object-position: 50% 50%;
                 border-radius: 50%;
             }
             input {

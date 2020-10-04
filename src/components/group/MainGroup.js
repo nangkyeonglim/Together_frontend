@@ -5,11 +5,14 @@ const MainGroupBlock = styled.div`
     display: flex;  
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100%;
+    background: #F8F8FA;
     .page_title{
-        margin: 5rem 0;
+        padding: 5rem 0;
         font-size: 1.2rem;
+        width: 100%;
+        background: white;
+        text-align :center;
     }
 `;
 
@@ -27,6 +30,8 @@ const GroupWrapper = styled.div`
             list-style: none;
             margin: 0.5rem;   
             background: #ffffff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+
             
         }
     }
@@ -49,8 +54,10 @@ const GroupItem = styled.div`
         overflow: hidden;
         flex-shrink: 0;
         img {
-            width: auto;
-            height: 100%;
+            width: 8rem;
+            height: 8rem;
+            object-fit: cover;
+            object-position: 50% 50%;
         }
     }
     .group__description{
@@ -82,7 +89,10 @@ const GroupItem = styled.div`
             font-size: 0.85rem; 
             img {
                 margin-right: 0.5rem;
-                width: 1.5rem;
+                width: 2rem;
+                height: 2rem;
+                object-fit: cover;
+                object-position: 50% 50%;
                 border-radius: 50%;
             }
         }
@@ -101,7 +111,7 @@ const GroupItem = styled.div`
     }
 `;
 
-const MainGroup = ({ group_list }) => {
+const MainGroup = ({ group_list, handleLogin }) => {
     return (
         <MainGroupBlock>
             <div className="page_title">
@@ -114,7 +124,7 @@ const MainGroup = ({ group_list }) => {
                     {group_list && group_list.map((group) => { 
                         return (
                             <li key={group.id}>
-                                <GroupItem>
+                                <GroupItem onClick={handleLogin}>
                                     <div className="group__image">
                                         <img alt="groupImage" src={group.imageUrl} />
                                     </div>

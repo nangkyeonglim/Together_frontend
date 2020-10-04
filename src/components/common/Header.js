@@ -52,6 +52,10 @@ const HeaderBlock = styled.header`
             /* width: 70px; */
             font-size: 1.5rem;
             font-weight: bold;
+            margin-right: 2rem;
+        }
+        @media(max-width: 767px){
+            display: none;
         }
         a{
             display: flex;
@@ -64,6 +68,32 @@ const HeaderBlock = styled.header`
         .m_logo{
             width: 1.7rem;
             margin: 0 0 0 2rem;
+        }
+    }
+    .logo-responsive-mobile{
+        display: none;
+        @media (max-width: 767px){
+            display: block;
+            background: #FFFFFF;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        a{
+            display: flex;
+            align-items: center;
+        }
+        img {
+            width: 5rem;
+            cursor: pointer;
+        }
+        .m_logo{
+            width: 1.7rem;
+            margin: 0 0 0 1rem;
         }
     }
     .header{
@@ -115,11 +145,10 @@ const HeaderBlock = styled.header`
                 color: #2c3e50;
             }
             img{
-                /* width: 2.1rem;
-                height: 2.1rem; */
-                width: auto; height: auto;
-                max-width: 2.1rem;
-                max-height: 2.1rem;
+                width: 2.1rem;
+                height: 2.1rem;
+                object-fit: cover;
+                object-position: 50% 50%;
                 border-radius: 50%;
                 cursor: pointer;
                 margin-right: 0.5rem;
@@ -294,6 +323,11 @@ const Header = ({ handleClick, handleOpenModal, handleLogout, location , user_in
                     <img src={logo} alt="together" />
                 </Link>
             </div>
+            <div className="logo-responsive-mobile">
+                <Link to="/">
+                    <img className="m_logo" src={m_logo} alt="together" />
+                </Link>
+            </div>
             <div className="header">
                 <div className="left">
                     <div className="search">
@@ -339,7 +373,7 @@ const Header = ({ handleClick, handleOpenModal, handleLogout, location , user_in
                             </div>
                             <span>{user_info.name}</span>
                             <button onClick={handleLogout}>로그아웃</button>
-                            <FaBars onClick={handleClick} />
+                            {/* <FaBars onClick={handleClick} />     */}
                         </div>
                     </>
                 :
@@ -349,7 +383,7 @@ const Header = ({ handleClick, handleOpenModal, handleLogout, location , user_in
                         </div>
                         <div className="right-responsive">
                             <button onClick={handleOpenModal}>로그인</button>
-                            <FaBars onClick={handleClick} />
+                            {/* <FaBars onClick={handleClick} /> */}
                         </div>
                     </>
                 }

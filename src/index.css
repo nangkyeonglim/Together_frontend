@@ -25,3 +25,19 @@ a:-webkit-any-link{
 button{
   outline: none;
 }
+
+tml{
+  min-height: 100%;
+}
+#root, body{
+  height: 100%;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;
+}

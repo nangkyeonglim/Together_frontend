@@ -2,6 +2,7 @@ import React from 'react';
 import HeaderContainer from '../containers/common/HeaderContainer';
 import GroupTemplate from '../components/place/GroupTemplate';
 import AddGroupModalContainer from '../containers/modal/AddGroupModalContainer';
+import GroupDeleteAlertModalContainer from '../containers/modal/GroupDeleteAlertModalContainer';
 
 const GroupPage = () => {
     return (
@@ -9,6 +10,7 @@ const GroupPage = () => {
             <HeaderContainer />
             <GroupTemplate />
             <AddGroupModalContainer />
+            <GroupDeleteAlertModalContainer />
         </>
     );
 };

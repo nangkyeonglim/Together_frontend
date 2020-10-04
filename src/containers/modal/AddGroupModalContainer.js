@@ -1,23 +1,27 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../../components/common/Modal';
-import { closeModal } from '../../modules/modal';
+import { closeModal, openModal } from '../../modules/modal';
 import AddGroupModal from '../../components/modal/AddGroupModal';
-import { changeAddGroupField, addGroup, setEditGroupField, editGroup } from '../../modules/group';
+import { changeAddGroupField, addGroup, editGroup, getGroupByUserId, initializeAddGroupField, initialize, getGroupByGroupId } from '../../modules/group';
 import { withRouter } from 'react-router-dom';
 
 
 const AddGroupModalContainer = ({ match }) => {
     const dispatch = useDispatch();
-    const { add_group_modal, error, add_group, current_group } = useSelector(({ modal, group }) => ({
+    const { add_group_modal, error, add_group, response } = useSelector(({ modal, group }) => ({
         add_group_modal: modal.add_group_modal,
         error: group.error,
         add_group: group.add_group,
-        current_group: group.current_group,
+        response: group.response,
     }));
 
     const handleCloseModal = () => {
         dispatch(closeModal('add_group_modal'));
+    }
+    const handleDelete = () => {
+        dispatch(closeModal('add_group_modal'));
+        dispatch(openModal('group_delete_alert_modal'));
     }
 
     const handleChange = (e) => {
@@ -76,17 +80,23 @@ const AddGroupModalContainer = ({ match }) => {
         }
     }
 
-    useEffect(() => {
-        if(current_group && match.path === "/group/:groupId"){
-            const group = {
-                title: current_group.title,
-                content: current_group.content,
-                imageUrl: current_group.imageUrl,
-                tags: current_group.tags,
-            }
-            dispatch(setEditGroupField(group));
+    useEffect(()=> {
+        if(response.add_group === ""){
+            dispatch(closeModal('add_group_modal'));
+            dispatch(getGroupByUserId(match.params.userId));
+            dispatch(initializeAddGroupField());
+            dispatch(initialize());
         }
-    },[match, dispatch, current_group]);
+    },[response, dispatch, match])
+    
+    useEffect(()=> {
+        if(response.edit_group === ""){
+            dispatch(closeModal('add_group_modal'));
+            dispatch(getGroupByGroupId(match.params.groupId));
+            dispatch(initializeAddGroupField());
+            dispatch(initialize());
+        }
+    },[response, dispatch, match])
 
     return (
         <>
@@ -101,6 +111,7 @@ const AddGroupModalContainer = ({ match }) => {
                         error={error}
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
+                        handleDelete={handleDelete}
                         add_group={add_group}
                         edit={match.path === "/group/:groupId"}
                     />

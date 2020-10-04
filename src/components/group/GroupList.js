@@ -6,11 +6,14 @@ const GroupListBlock = styled.div`
     display: flex;  
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100%;
+    background: #F8F8FA;
     .page_title{
-        margin: 5rem 0;
+        padding: 5rem 0;
         font-size: 1.2rem;
+        width: 100%;
+        background: white;
+        text-align :center;
     }
     .group_adder{
         width: 100%;
@@ -130,7 +133,10 @@ const GroupItem = styled.div`
             margin-bottom: 0.5rem;
             img {
                 margin-right: 0.5rem;
-                width: 1.5rem;
+                width: 2rem;
+                height: 2rem;
+                object-fit: cover;
+                object-position: 50% 50%;
                 border-radius: 50%;
             }
         }
