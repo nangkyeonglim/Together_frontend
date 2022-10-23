@@ -1,68 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 투게더(Together)
+<div align=center>
+  <img src="https://user-images.githubusercontent.com/57815133/197420557-1a55dc55-41fc-4afc-8ee4-630fc5030689.png"  width="100" height="130"/>
+</div>
+<br/>
+<div align=center>
+친구들과 함께 그룹을 만들어 맛집 리스트를 공유할 수 있는 웹 애플리케이션
+</div>
 
-## Available Scripts
+## 시현 영상
+[유튜브 링크](https://www.youtube.com/watch?v=bjG2bpmvjdY)
 
-In the project directory, you can run:
+## 서비스 화면
+<img src="https://user-images.githubusercontent.com/57815133/197420801-68baca1b-4d41-40d4-a0fa-1990b776be7f.png" />
+<img src="https://user-images.githubusercontent.com/57815133/197420960-7eb6cad9-bc80-4176-bd4e-2004e8de266e.png" width="823" height="442" />
+<img src="https://user-images.githubusercontent.com/57815133/197420956-98c6987f-b9c4-4574-a988-28773ec3cd5f.png" />
+<img src="https://user-images.githubusercontent.com/57815133/197421322-f20ed5a4-5cae-4b76-9b1e-9ec40918ef4f.png" width="823" height="442" />
+                                                                                                                                         
+## 주기능
+* 소셜 로그인
+* 그룹 생성, 편집, 삭제
+* 그룹 이름 및 태그 검색, 맛집 검색
+* 그룹 팔로우, 언팔로우
+* 그룹에 코멘트와 함께 맛집 저장
+* 반응형 웹페이지
 
-### `yarn start`
+## 설계
+<img src="https://user-images.githubusercontent.com/57815133/197421908-8c55d3cb-a232-4e46-8ad2-bea4cc7befef.png" />
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## 개발 스택
+* HTML, CSS, Javascript, React(Redux, Redux-saga, Styled-components)
+* Java, SpringBoot, AWS(S3, RDS), Selenium
